@@ -20,4 +20,4 @@ ________________________________
 ## Open in Browser
 ________________________________
 ### [swagger documentation](http://localhost:8081/swagger-ui/index.html)
-### [eureca server](http://localhost:8761/)
+### [eureka server](http://localhost:8761/)
