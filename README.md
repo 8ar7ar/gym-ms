@@ -21,3 +21,6 @@ ________________________________
 ________________________________
 ### [swagger documentation](http://localhost:8081/swagger-ui/index.html)
 ### [eureka server](http://localhost:8761/)
+
+________________________________
+[![swagger example image](swagger-screenshot.jpg)](swagger-screenshot.jpg)
