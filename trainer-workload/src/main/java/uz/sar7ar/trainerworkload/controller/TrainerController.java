@@ -2,6 +2,7 @@ package uz.sar7ar.trainerworkload.controller;
 
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import uz.sar7ar.trainerworkload.service.TrainerService;
@@ -13,6 +14,7 @@ import java.time.LocalDate;
  * This class is a REST controller for handling trainer-related operations.
  * It provides endpoints for updating training information and retrieving training summaries.
  */
+@Slf4j
 @AllArgsConstructor
 @RestController
 @RequestMapping("/api/v1/trainer-workload-service")
@@ -40,8 +42,10 @@ public class TrainerController {
                                             @RequestParam LocalDate trainingDate,
                                             @RequestParam int durationInHours,
                                             @RequestParam String actionType) {
+        log.info("Updating training for trainer [{}]", trainerUsername);
         trainerService.processTraining(trainerUsername, firstName, lastName, isActive, trainingDate, durationInHours, actionType);
         trainerSummaryService.processTrainerEvent(trainerUsername, firstName, lastName, isActive, trainingDate, durationInHours);
+        log.info("Training updated for trainer [{}]", trainerUsername);
 
         return ResponseEntity.ok().build();
     }
@@ -54,6 +58,7 @@ public class TrainerController {
      */
     @GetMapping("/{username}/summary")
     public ResponseEntity<?> getTrainingSummary(@PathVariable String username) {
+        log.info("Getting training summary for trainer [{}]", username);
         return ResponseEntity.ok(trainerService.getTrainingSummary(username));
     }
 }

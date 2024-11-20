@@ -1,5 +1,6 @@
 package uz.sar7ar.trainerworkload.config;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jms.annotation.EnableJms;
 
@@ -9,17 +10,9 @@ import org.springframework.jms.annotation.EnableJms;
  */
 @Configuration
 @EnableJms
+@Slf4j
 public class ActiveMQConfig {
-//    @Bean
-//    public MessageConverter jacksonJmsMessageConverter() {
-//        MappingJackson2MessageConverter converter = new MappingJackson2MessageConverter();
-//        converter.setTargetType(MessageType.TEXT);
-//        converter.setTypeIdPropertyName("_type");
-//
-//        ObjectMapper objectMapper = new ObjectMapper();
-//        objectMapper.registerModule(new JavaTimeModule());
-//        converter.setObjectMapper(objectMapper);
-//
-//        return converter;
-//    }
+    public ActiveMQConfig() {
+        log.info("Initializing ActiveMQ configuration");
+    }
 }

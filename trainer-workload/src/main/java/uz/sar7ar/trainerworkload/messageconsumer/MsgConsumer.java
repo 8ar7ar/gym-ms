@@ -3,6 +3,7 @@ package uz.sar7ar.trainerworkload.messageconsumer;
 import jakarta.jms.JMSException;
 import jakarta.jms.Message;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
 import uz.sar7ar.trainerworkload.service.TrainerService;
@@ -13,6 +14,7 @@ import java.time.LocalDate;
  * This class is responsible for consuming messages from a JMS queue.
  * It listens to the "defaultQueue" and processes incoming messages.
  */
+@Slf4j
 @AllArgsConstructor
 @Component
 public class MsgConsumer {
@@ -28,6 +30,7 @@ public class MsgConsumer {
      */
     @JmsListener(destination = "defaultQueue")
     public void processMessage(Message message) throws JMSException {
+        log.info("processing message from defaultQueue: {}", message);
         trainerService.processTraining(
                 message.getStringProperty("userName"),
                 message.getStringProperty("firstName"),
@@ -36,6 +39,7 @@ public class MsgConsumer {
                 LocalDate.parse(message.getStringProperty("trainingDate")),
                 message.getIntProperty("durationInHours"),
                 message.getStringProperty("actionType"));
+        log.info("message processed: {}", message);
         System.out.println(message);
     }
 }

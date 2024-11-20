@@ -38,12 +38,27 @@ public class TrainersTrainingSummary {
     @Field("years")
     private List<YearSummary> years;
 
-    @Getter
-    @Setter
-    @AllArgsConstructor
-    @NoArgsConstructor
-    public static class YearSummary{
-        private int year;
-        private Map<String, Integer> months;
-    }
+    /**
+ * Represents a summary of a trainer's training activities for a specific year.
+ * This class is used to store and retrieve data from the MongoDB collection 'trainer_summaries'.
+ *
+ * @author Tabnine
+ */
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+public static class YearSummary {
+
+    /**
+     * The year for which the training summary is provided.
+     */
+    private int year;
+
+    /**
+     * A map representing the number of training activities for each month in the specified year.
+     * The keys are the month names (e.g., "January", "February", etc.), and the values are the corresponding counts.
+     */
+    private Map<String, Integer> months;
+}
 }
