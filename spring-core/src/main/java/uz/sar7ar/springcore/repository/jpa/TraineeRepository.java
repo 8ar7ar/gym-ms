@@ -20,4 +20,5 @@ public interface TraineeRepository extends JpaRepository<Trainee, Integer> {
             "WHERE t.user.id = (SELECT u.id FROM User AS u " +
                                "WHERE u.userName = :userName)")
     void deleteTraineeByUserName(@Param("userName") String userName);
+
 }

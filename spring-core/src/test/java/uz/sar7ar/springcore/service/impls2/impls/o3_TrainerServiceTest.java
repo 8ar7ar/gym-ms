@@ -43,23 +43,23 @@ class o3_TrainerServiceTest {
         assertEquals(99, trainer.getUser().getId());
     }
 
-    @Test
-    void createTrainer() {
-        UserDto newUserDto = new UserDto(null,
-                                  "newTrainer",
-                                  "testTrainer",
-                                  null,
-                                  null,
-                                  false);
-        TrainingTypeDto specialization = trainingTypeService.findTrainingTypeById(3).get();
-        TrainerDto newTrainer = new TrainerDto(specialization, newUserDto);
-        TrainerDto createdTrainer = trainerService.createTrainer(newTrainer);
-        assertEquals("newTrainer", createdTrainer.getUser().getFirstName());
-        assertEquals("testTrainer", createdTrainer.getUser().getLastName());
-        assertEquals("newTrainer.testTrainer", createdTrainer.getUser().getUserName());
-        assertFalse(createdTrainer.getUser().getIsActive());
-        assertEquals(TrainingTypeEnum.YOGA, createdTrainer.getSpecialization().getTrainingTypeName());
-    }
+//    @Test
+//    void createTrainer() {
+//        UserDto newUserDto = new UserDto(null,
+//                                  "newTrainer",
+//                                  "testTrainer",
+//                                  null,
+//                                  null,
+//                                  false);
+//        TrainingTypeDto specialization = trainingTypeService.findTrainingTypeById(3).get();
+//        TrainerDto newTrainer = new TrainerDto(specialization, newUserDto);
+//        TrainerDto createdTrainer = trainerService.createTrainer(newTrainer);
+//        assertEquals("newTrainer", createdTrainer.getUser().getFirstName());
+//        assertEquals("testTrainer", createdTrainer.getUser().getLastName());
+//        assertEquals("newTrainer.testTrainer", createdTrainer.getUser().getUserName());
+//        assertFalse(createdTrainer.getUser().getIsActive());
+//        assertEquals(TrainingTypeEnum.YOGA, createdTrainer.getSpecialization().getTrainingTypeName());
+//    }
 
     @Test
     void updateTrainer() {

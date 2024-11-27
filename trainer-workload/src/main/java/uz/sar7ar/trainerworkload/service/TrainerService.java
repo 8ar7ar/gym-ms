@@ -1,7 +1,6 @@
 package uz.sar7ar.trainerworkload.service;
 
 import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import uz.sar7ar.trainerworkload.model.TrainingSession;
 import uz.sar7ar.trainerworkload.model.Trainer;
@@ -17,7 +16,6 @@ import java.util.Optional;
 /**
  * Service class for managing trainer-related operations.
  */
-@Slf4j
 @AllArgsConstructor
 @Service
 public class TrainerService {
@@ -35,14 +33,11 @@ public class TrainerService {
      * @param actionType the type of action to be performed, either "ADD" or "DELETE"
      */
     public void processTraining(String userName, String firstName, String lastName,
-                                boolean isActive, LocalDate trainingDate,
-                                int duration, String actionType) {
-        log.info("Processing training for trainer [{}]", userName);
+                                boolean isActive, LocalDate trainingDate, int duration, String actionType) {
         Optional<Trainer> trainer = trainerRepository.findByUserName(userName);
         if (trainer.isEmpty()) trainer =  Optional.of(new Trainer(userName, firstName, lastName, isActive));
 
         if ("ADD".equals(actionType)) {
-            log.info("Adding training session for trainer [{}]", userName);
             TrainingSession record = new TrainingSession();
             record.setTrainingDate(trainingDate);
             record.setTrainingDuration(duration);
@@ -54,7 +49,6 @@ public class TrainerService {
             System.out.println("================================================================");
 
         } else if ("DELETE".equals(actionType)) {
-            log.info("Deleting training session for trainer [{}]", userName);
             List<TrainingSession> trainingSessions = trainer.get().getTrainingSessions();
             trainingSessions.removeIf(s -> s.getTrainingDate().equals(trainingDate) && s.getTrainingDuration() == duration);
             trainingSessionRepository.deleteAll(trainingSessions);
@@ -65,13 +59,12 @@ public class TrainerService {
      * Get the training summary for a given trainer.
      * <p>
      * The summary is a map of years to maps of months to the total duration of all training sessions in that month.
-     * @param trainerUsername the username of the trainer
+     * @param username the username of the trainer
      * @return a map of years to maps of months to training durations
      * @throws RuntimeException if the trainer does not exist
      */
-    public Map<Integer, Map<Integer, Integer>> getTrainingSummary(String trainerUsername) {
-        log.info("Getting training summary for {}", trainerUsername);
-        Trainer trainer = trainerRepository.findByUserName(trainerUsername)
+    public Map<Integer, Map<Integer, Integer>> getTrainingSummary(String username) {
+        Trainer trainer = trainerRepository.findByUserName(username)
                 .orElseThrow(() -> new RuntimeException("Trainer not found"));
 
         Map<Integer, Map<Integer, Integer>> yearlyMonthlySummary = new HashMap<>();
