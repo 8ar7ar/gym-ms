@@ -7,9 +7,6 @@ import uz.sar7ar.springcore.model.entities.TrainingTypeEnum;
 
 import java.io.Serializable;
 
-/**
- * DTO for {@link TrainingType}
- */
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor

@@ -8,9 +8,6 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * DTO for {@link Trainer}
- */
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor

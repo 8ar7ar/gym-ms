@@ -10,9 +10,6 @@ import uz.sar7ar.springcore.model.entities.Training;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-/**
- * DTO for {@link Training}
- */
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor

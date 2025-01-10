@@ -14,9 +14,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 
-/**
- * Service class for managing trainer summary-related operations.
- */
 @AllArgsConstructor
 @Service
 public class TrainerSummaryService {
@@ -25,18 +22,6 @@ public class TrainerSummaryService {
 
     private TrainerSummaryRepository trainerSummaryRepository;
 
-
-    /**
-     * Processes an event for a trainer. If the trainer doesn't exist, creates a new document in MongoDB.
-     * If the trainer exists, updates the existing document.
-     *
-     * @param trainerUserName the username of the trainer
-     * @param firstName the first name of the trainer
-     * @param lastName the last name of the trainer
-     * @param isActive whether the trainer is active
-     * @param trainingDate the date of the training
-     * @param trainingDurationInHours the duration of the training in hours
-     */
     public void  processTrainerEvent(String trainerUserName,
                                       String firstName,
                                       String lastName,
@@ -59,18 +44,6 @@ public class TrainerSummaryService {
 
     }
 
-    /**
-     * Creates a new {@link TrainersTrainingSummary} from the given parameters.
-     *
-     * @param trainerUserName the username of the trainer
-     * @param firstName the first name of the trainer
-     * @param lastName the last name of the trainer
-     * @param isActive whether the trainer is active
-     * @param trainingDate the date of the training
-     * @param trainingDurationInHours the duration of the training in hours
-     *
-     * @return a new {@link TrainersTrainingSummary}
-     */
     private TrainersTrainingSummary createNewTrainerSummary(String trainerUserName, String firstName, String lastName, boolean isActive, LocalDate trainingDate, int trainingDurationInHours) {
         TrainersTrainingSummary trainerSummary = new TrainersTrainingSummary();
         trainerSummary.setUserName(trainerUserName);
@@ -87,13 +60,6 @@ public class TrainerSummaryService {
         return trainerSummary;
     }
 
-    /**
-     * Updates the given {@link TrainersTrainingSummary} to reflect the new training.
-     *
-     * @param trainerSummary the summary to update
-     * @param trainingDate the date of the training
-     * @param trainingDurationInHours the duration of the training in hours
-     */
     private void updateTrainerSummary(TrainersTrainingSummary trainerSummary, LocalDate trainingDate, int trainingDurationInHours) {
         int year = trainingDate.getYear();
         String month = getMonthName(trainingDate);
@@ -113,12 +79,6 @@ public class TrainerSummaryService {
         }
     }
 
-    /**
-     * Returns the full, English name of the month of the given date.
-     *
-     * @param trainingDate the date to get the month name for
-     * @return the full, English name of the month
-     */
     private String getMonthName(LocalDate trainingDate) {
         return trainingDate.getMonth().getDisplayName(TextStyle.FULL, Locale.ENGLISH);
     }

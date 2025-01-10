@@ -10,9 +10,6 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Set;
 
-/**
- * DTO for {@link Trainee}
- */
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor

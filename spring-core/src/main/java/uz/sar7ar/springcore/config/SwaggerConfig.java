@@ -10,10 +10,6 @@ import io.swagger.v3.oas.models.OpenAPI;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-/**
- * Configuration class for Swagger.
- * This class is responsible for configuring the Swagger documentation for the application.
- */
 @Configuration
 @OpenAPIDefinition(info = @Info(title = "GYM-CRM API Documentation", version = "1.0"),
                    security = @SecurityRequirement(name = "bearerAuth"))
@@ -22,11 +18,6 @@ import org.springframework.context.annotation.Configuration;
                 scheme = "bearer",
                 bearerFormat = "JWT")
 public class SwaggerConfig {
-    /**
-     * The SpringDoc OpenAPI bean that describes the RESTful endpoints provided by this application.
-     *
-     * @return An instance of OpenAPI.
-     */
     @Bean
     public OpenAPI customOpenAPI() {
         return new OpenAPI()

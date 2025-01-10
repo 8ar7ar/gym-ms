@@ -3,10 +3,6 @@ package uz.sar7ar.trainerworkload.config;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jms.annotation.EnableJms;
 
-/**
- * Configuration class for ActiveMQ.
- * Enables JMS (Java Message Service) support in the application.
- */
 @Configuration
 @EnableJms
 public class ActiveMQConfig {

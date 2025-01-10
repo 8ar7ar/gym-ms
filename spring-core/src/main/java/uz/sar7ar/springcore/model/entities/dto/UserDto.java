@@ -7,9 +7,6 @@ import uz.sar7ar.springcore.model.entities.User;
 
 import java.io.Serializable;
 
-/**
- * DTO for {@link User}
- */
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
