@@ -41,7 +41,6 @@ public class Training {
     @JoinColumn(name = "training_type_id")
     private TrainingType trainingType;
 
-
     @FutureOrPresent
     @Column(name = "training_date", nullable = false)
     private LocalDate trainingDate;

@@ -29,11 +29,8 @@ public interface TrainerWorkloadMicroService {
                                  int duration,
                                  String actionType,
                                  Throwable t) {
-        // Log the error and execute fallback logic
         System.out.println("Fallback: Trainer workload service is unavailable.");
         System.out.println("Error occurred: " + t.getMessage());
         System.out.println("Failed request: Trainer - " + trainerUsername + " | Date: " + trainingDate + " | Action: " + actionType);
-
-        // Here you could add additional logging, notifications, or other actions as needed.
     }
 }

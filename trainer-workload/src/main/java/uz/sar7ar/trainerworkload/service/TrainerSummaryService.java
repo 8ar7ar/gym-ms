@@ -17,7 +17,6 @@ import java.util.Optional;
 @AllArgsConstructor
 @Service
 public class TrainerSummaryService {
-    private static final Logger transactionLogger = LoggerFactory.getLogger("TransactionLogger");
     private static final Logger operationLogger = LoggerFactory.getLogger(TrainerSummaryService.class);
 
     private TrainerSummaryRepository trainerSummaryRepository;

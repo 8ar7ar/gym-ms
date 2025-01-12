@@ -13,7 +13,6 @@ import uz.sar7ar.springcore.model.entities.dto.TraineeDto;
 import uz.sar7ar.springcore.model.entities.dto.TrainerDto;
 import uz.sar7ar.springcore.model.entities.dto.TrainingDto;
 import uz.sar7ar.springcore.model.entities.dto.TrainingTypeDto;
-import uz.sar7ar.springcore.mscomunication.TrainerWorkloadMicroService;
 import uz.sar7ar.springcore.service.impls2.TraineeService;
 import uz.sar7ar.springcore.service.impls2.TrainerService;
 import uz.sar7ar.springcore.service.impls2.TrainingService;
@@ -33,7 +32,6 @@ public class TrainingRestController {
     private final TraineeService traineeService;
     private final TrainerService trainerService;
     private final TrainingTypeService trainingTypeService;
-    private final TrainerWorkloadMicroService trainerWorkloadMicroService;
 
     @PostMapping
     @Operation(summary = "Add Training")

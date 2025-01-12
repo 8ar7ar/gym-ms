@@ -13,7 +13,6 @@ import uz.sar7ar.springcore.exceptions.UserPasswordConfirmationException;
 import uz.sar7ar.springcore.model.entities.User;
 import uz.sar7ar.springcore.model.entities.dto.UserDto;
 import uz.sar7ar.springcore.repository.jpa.UserRepository;
-import uz.sar7ar.springcore.security.user_details.CustomUserDetailsService;
 import uz.sar7ar.springcore.service.impls2.UserService;
 import uz.sar7ar.springcore.utils.UserUtils;
 
@@ -28,7 +27,6 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
     private final UserUtils userUtils;
     private final UserRepository userRepository;
-    private final CustomUserDetailsService customUserDetailsService;
     private final PasswordEncoder passwordEncoder;
 
     @Override
@@ -82,15 +80,6 @@ public class UserServiceImpl implements UserService {
         return user.map(User::toUserDto);
     }
 
-    /**
-     * If returns false then userName found but password mismatched.
-     * If throws UserNameNotFoundException then userName not found
-     *
-     * @param userName String
-     * @param password String
-     * @return boolean
-     * @throws UserNameNotFoundException exception
-     */
     @Override
     @Transactional(readOnly = true)
     public boolean authenticateUser(String userName, String password)

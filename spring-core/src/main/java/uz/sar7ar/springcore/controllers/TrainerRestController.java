@@ -15,7 +15,6 @@ import uz.sar7ar.springcore.model.entities.dto.TrainerDto;
 import uz.sar7ar.springcore.model.entities.dto.TrainingTypeDto;
 import uz.sar7ar.springcore.model.entities.dto.TrainersTrainingsDto;
 import uz.sar7ar.springcore.service.impls2.TrainerService;
-import uz.sar7ar.springcore.service.impls2.UserService;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -27,7 +26,6 @@ import java.util.Set;
 @RestController
 @RequestMapping("/api/v1/trainers")
 public class TrainerRestController {
-    private final UserService userService;
     private final TrainerService trainerService;
 
     @GetMapping("/{username}")
