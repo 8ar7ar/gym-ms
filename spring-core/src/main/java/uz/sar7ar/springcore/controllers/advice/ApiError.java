@@ -1,14 +1,14 @@
 package uz.sar7ar.springcore.controllers.advice;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 
 import java.util.Collections;
 import java.util.List;
 
-@AllArgsConstructor
 @Getter
+@RequiredArgsConstructor
 public class ApiError {
     private final HttpStatus status;
     private final String message;
@@ -20,3 +20,4 @@ public class ApiError {
         errors = Collections.singletonList(error);
     }
 }
+
