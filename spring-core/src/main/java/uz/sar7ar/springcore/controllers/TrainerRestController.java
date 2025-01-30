@@ -117,12 +117,13 @@ public class TrainerRestController {
         Optional<TrainerDto> optTrainerDto = trainerService.getTrainerByUserName(userName);
         TrainerDto trainerDto;
         if (optTrainerDto.isPresent())  trainerDto = optTrainerDto.get();
-        else throw new UserNameNotFoundException("Trainer << " + userName + " >> not found. Check your spelling please.");
+        else throw new UserNameNotFoundException("Trainer << " + userName + " >> not found. " +
+                                                 "Check your spelling please.");
         trainerDto.getUser().setIsActive(isActive);
         trainerService.updateTrainer(trainerDto);
         String msg = (isActive)
-                ? "Trainer << " + userName + " >> is activated."
-                : "Trainer << " + userName + " >> is de-activated.";
+                        ? "Trainer << " + userName + " >> is activated."
+                        : "Trainer << " + userName + " >> is de-activated.";
 
         return ResponseEntity
                 .status(HttpStatus.OK)

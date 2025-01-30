@@ -2,7 +2,6 @@ package uz.sar7ar.springcore.controllers;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -44,7 +43,7 @@ public class TrainingRestController {
                                                  @RequestParam("training-date") LocalDate trainingDate,
                                                  @Parameter(description = "number of days")
                                                  @RequestParam("training-duration") Integer duration)
-                                          throws UserNameNotFoundException {
+            throws UserNameNotFoundException {
         Optional<TraineeDto> optTraineeDto = traineeService.getTraineeByUserName(traineeUserName);
         Optional<TrainerDto> optTrainerDto = trainerService.getTrainerByUserName(trainerUserName);
         Optional<TrainingTypeDto> optTrainingTypeDto = trainingTypeService.findTrainingTypeByName(trainingType);
@@ -61,7 +60,7 @@ public class TrainingRestController {
         else throw new UserNameNotFoundException("Training << " + trainerUserName + " >> not found");
 
         TrainingDto newTrainingDto = new TrainingDto(traineeDto, trainerDto, trainingName,
-                                                     trainingTypeDto, trainingDate, duration);
+                trainingTypeDto, trainingDate, duration);
         TrainingDto createdTrainingDto = trainingService.addTraining(newTrainingDto);
 
 
@@ -72,7 +71,7 @@ public class TrainingRestController {
 
     @GetMapping("/training-types")
     @Operation(summary = "Get Training types")
-    public ResponseEntity<List<TrainingTypeDto>> getAllTrainingTypes(){
+    public ResponseEntity<List<TrainingTypeDto>> getAllTrainingTypes() {
         List<TrainingTypeDto> trainingTypes = trainingTypeService.findAllTrainingTypes();
 
         return ResponseEntity

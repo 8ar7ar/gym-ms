@@ -4,7 +4,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -49,15 +48,15 @@ public class UserRestController {
     @PostMapping("/trainee-registration")
     @Operation(summary = "Trainee Registration")
     public ResponseEntity<UserCredentialsDto> createNewTraineeProfile(@RequestParam(value = "first-name") String firstName,
-                                                                     @RequestParam(value = "last-name") String lastName,
-                                                                     @Parameter(description = "format: yyyy-mm-dd")
-                                                                     @RequestParam(value = "date-of-birth", required = false)
-                                                                     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dateOfBirth,
-                                                                     @RequestParam(value = "address", required = false) String address) {
+                                                                      @RequestParam(value = "last-name") String lastName,
+                                                                      @Parameter(description = "format: yyyy-mm-dd")
+                                                                      @RequestParam(value = "date-of-birth", required = false)
+                                                                      @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dateOfBirth,
+                                                                      @RequestParam(value = "address", required = false) String address) {
         TraineeDto newTraineeDto = new TraineeDto(dateOfBirth, address, new UserDto(firstName, lastName, Roles.TRAINEE));
         TraineeDto createdTrainee = traineeService.createTrainee(newTraineeDto);
         UserCredentialsDto userCredentials = new UserCredentialsDto(createdTrainee.getUser().getUserName(),
-                                                                    createdTrainee.getUser().getPassword());
+                createdTrainee.getUser().getPassword());
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(userCredentials);
@@ -83,7 +82,7 @@ public class UserRestController {
     @GetMapping("/login")
     @Operation(summary = "Login to trainee/trainer profile")
     public ResponseEntity<String> authenticateUser(@RequestParam("username") String userName,
-                                                   @RequestParam("password") String password){
+                                                   @RequestParam("password") String password) {
         try {
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(userName, password));
@@ -100,7 +99,7 @@ public class UserRestController {
             return ResponseEntity
                     .status(HttpStatus.OK)
                     .body(authorities + "<< " + userName + " >> successfully authenticated.\n" +
-                          "Your jwt: " + jwt);
+                            "Your jwt: " + jwt);
         } catch (AuthenticationException ex) {
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)
@@ -111,12 +110,12 @@ public class UserRestController {
     @PostMapping("/logout")
     @Operation(summary = "Log out from trainee/trainer profile")
     public ResponseEntity<String> logOut(HttpServletRequest request,
-                                         HttpServletResponse response){
+                                         HttpServletResponse response) {
         String token = request.getHeader("Authorization");
-        if(token != null && token.startsWith("Bearer")){
+        if (token != null && token.startsWith("Bearer")) {
             token = token.substring(7);
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-            if(auth != null && auth.isAuthenticated()){
+            if (auth != null && auth.isAuthenticated()) {
                 new SecurityContextLogoutHandler().logout(request, response, auth);
                 jwtBlacklistService.blacklistToken(token);
                 return ResponseEntity
@@ -124,7 +123,7 @@ public class UserRestController {
                         .body("You have successfully logged out and your token invalidated.");
             }
         }
-        return  ResponseEntity
+        return ResponseEntity
                 .status(HttpStatus.UNAUTHORIZED)
                 .body("Unauthorized: No valid token or user session");
     }
@@ -136,9 +135,9 @@ public class UserRestController {
                                                      @Parameter(description = "password length must be exactly 10 symbols")
                                                      @RequestParam("new-password") String newPassword,
                                                      @RequestParam("new-password-confirmation") String newPasswordConfirmation)
-                                              throws UserNameNotFoundException,
-                                                     InvalidUserPasswordException,
-                                                     UserPasswordConfirmationException {
+            throws UserNameNotFoundException,
+            InvalidUserPasswordException,
+            UserPasswordConfirmationException {
         userService.changeUsersPassword(userName, oldPassword, newPassword, newPasswordConfirmation);
 
         return ResponseEntity
