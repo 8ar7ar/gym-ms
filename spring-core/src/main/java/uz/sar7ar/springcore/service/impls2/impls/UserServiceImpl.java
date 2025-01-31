@@ -49,8 +49,7 @@ public class UserServiceImpl implements UserService {
         if(newUserDto.getIsActive() != null) newUser.setIsActive(newUserDto.getIsActive());
         else newUser.setIsActive(false);
 
-        User createdUser = userRepository.save(newUser);
-        return createdUser;
+        return userRepository.save(newUser);
     }
 
     @Override

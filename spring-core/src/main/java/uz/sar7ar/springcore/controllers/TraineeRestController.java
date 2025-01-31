@@ -33,8 +33,9 @@ public class TraineeRestController {
                                                     throws UserNameNotFoundException {
         Optional<TraineeDto> trainee = traineeService.getTraineeByUserName(userName);
         TraineeDto dtoToReturn;
-        if (trainee.isEmpty()) throw new UserNameNotFoundException("Trainee << " + userName +
-                                                                   " >> not found. Check your spelling please.");
+        if (trainee.isEmpty())
+            throw new UserNameNotFoundException("Trainee << " + userName +
+                                                " >> not found. Check your spelling please.");
         else {
             dtoToReturn = trainee.get();
             dtoToReturn.getUser().setPassword(null);

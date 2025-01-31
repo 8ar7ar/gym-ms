@@ -14,6 +14,8 @@ public class ActiveMQConfig {
         jmsTemplate.setDefaultDestinationName("defaultQueue");  // Set default destination here
         return jmsTemplate;
     }
+
+
 //    @Bean
 //    public MessageConverter jacksonJmsMessageConverter() {
 //        MappingJackson2MessageConverter converter = new MappingJackson2MessageConverter();

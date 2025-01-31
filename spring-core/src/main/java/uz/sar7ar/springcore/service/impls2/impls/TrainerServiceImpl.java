@@ -1,6 +1,6 @@
 package uz.sar7ar.springcore.service.impls2.impls;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -10,7 +10,10 @@ import uz.sar7ar.springcore.model.entities.*;
 import uz.sar7ar.springcore.model.entities.dto.TraineeDto;
 import uz.sar7ar.springcore.model.entities.dto.TrainerDto;
 import uz.sar7ar.springcore.model.entities.dto.TrainersTrainingsDto;
-import uz.sar7ar.springcore.repository.jpa.*;
+import uz.sar7ar.springcore.repository.jpa.TrainerRepository;
+import uz.sar7ar.springcore.repository.jpa.TrainingRepository;
+import uz.sar7ar.springcore.repository.jpa.TrainingTypeRepository;
+import uz.sar7ar.springcore.repository.jpa.UserRepository;
 import uz.sar7ar.springcore.service.impls2.TraineeService;
 import uz.sar7ar.springcore.service.impls2.TrainerService;
 import uz.sar7ar.springcore.service.impls2.UserService;
@@ -23,7 +26,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Transactional
 @Service
 public class TrainerServiceImpl implements TrainerService {
@@ -72,7 +75,8 @@ public class TrainerServiceImpl implements TrainerService {
         Trainer oldTrainer = trainerRepository.findById(toBeUpdatedTrainerDto.getId()).get();
         User updatedUser = userService.updateUser(toBeUpdatedTrainerDto.getUser());
         TrainingType specialization = trainingTypeRepository
-                .findByTrainingTypeName(toBeUpdatedTrainerDto.getSpecialization().getTrainingTypeName()).get();
+                .findByTrainingTypeName(toBeUpdatedTrainerDto.getSpecialization().getTrainingTypeName())
+                .get();
         oldTrainer.setUser(updatedUser);
         oldTrainer.setSpecialization(specialization);
         Trainer updatedTrainer = trainerRepository.save(oldTrainer);
@@ -91,9 +95,10 @@ public class TrainerServiceImpl implements TrainerService {
     @Override
     @Transactional(readOnly = true)
     public Set<TrainerDto> getTrainersWhoseNotAssignedToTrainee(String traineeUserName)
-                                                         throws UserNameNotFoundException {
+            throws UserNameNotFoundException {
         log.info("getTrainersWhoseNotAssignedToTrainee called");
-        if(traineeService.getTraineeByUserName(traineeUserName).isEmpty()) throw new UserNameNotFoundException("Trainee not found");
+        if (traineeService.getTraineeByUserName(traineeUserName).isEmpty())
+            throw new UserNameNotFoundException("Trainee not found");
         Set<Trainer> trainers = trainerRepository.TrainersWhoseNotAssignedToTrainee(traineeUserName);
 
         return trainers.stream().map(Trainer::toTrainerDto).collect(Collectors.toSet());
@@ -103,9 +108,9 @@ public class TrainerServiceImpl implements TrainerService {
     @Transactional(readOnly = true)
     public Set<TraineeDto> getTrainersTrainees(String trainerUserName) {
         return trainerRepository.getTrainersTrainees(trainerUserName)
-                                .stream()
-                                .map(Trainee::toTraineeDto)
-                                .collect(Collectors.toSet());
+                .stream()
+                .map(Trainee::toTraineeDto)
+                .collect(Collectors.toSet());
     }
 
     @Override
@@ -119,32 +124,32 @@ public class TrainerServiceImpl implements TrainerService {
                 && !traineeUserName.isEmpty()
                 && !traineeUserName.isBlank())
             trainings = trainings
-                            .stream()
-                            .filter(t -> t.getTrainee()
-                                    .getUser()
-                                    .getUserName()
-                                    .equals(traineeUserName))
-                            .toList();
+                    .stream()
+                    .filter(t -> t.getTrainee()
+                            .getUser()
+                            .getUserName()
+                            .equals(traineeUserName))
+                    .toList();
         if (fromDate != null)
             trainings = trainings
-                            .stream()
-                            .filter(t -> t.getTrainingDate()
-                                    .isAfter(fromDate.minusDays(1)))
-                            .toList();
+                    .stream()
+                    .filter(t -> t.getTrainingDate()
+                            .isAfter(fromDate.minusDays(1)))
+                    .toList();
         if (toDate != null)
             trainings = trainings
-                            .stream()
-                            .filter(t -> t.getTrainingDate()
-                                    .isBefore(toDate))
-                            .toList();
+                    .stream()
+                    .filter(t -> t.getTrainingDate()
+                            .isBefore(toDate))
+                    .toList();
         List<TrainersTrainingsDto> trainingToReturn = new ArrayList<>();
         trainings.forEach(t -> trainingToReturn
-                                    .add(new TrainersTrainingsDto(
-                                                t.getTrainingName(),
-                                                t.getTrainee().getUser().getUserName(),
-                                                t.getTrainingDate(),
-                                                t.getTrainingType().getTrainingTypeName(),
-                                                t.getDuration())));
+                .add(new TrainersTrainingsDto(
+                        t.getTrainingName(),
+                        t.getTrainee().getUser().getUserName(),
+                        t.getTrainingDate(),
+                        t.getTrainingType().getTrainingTypeName(),
+                        t.getDuration())));
 
         return trainingToReturn;
     }

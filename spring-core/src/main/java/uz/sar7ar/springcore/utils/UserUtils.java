@@ -41,7 +41,7 @@ public class UserUtils {
         for (int i = 0; i < PASSWORD_LENGTH; i++)
             builder.append(ALPHANUMERIC_CHARACTERS.charAt(
                                                     RANDOM.nextInt(
-                                                        ALPHANUMERIC_CHARACTERS.length())));
+                                                            ALPHANUMERIC_CHARACTERS.length())));
         return builder.toString();
     }
 

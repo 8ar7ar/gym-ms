@@ -146,28 +146,27 @@ public class TraineeServiceImpl implements TraineeService {
             trainings = trainings
                             .stream()
                             .filter(t -> t.getTrainer()
-                                          .getUser()
-                                          .getUserName()
-                                          .equals(trainerUserName))
+                                                  .getUser()
+                                                  .getUserName()
+                                                  .equals(trainerUserName))
                             .toList();
         if (trainingType != null)
             trainings = trainings
                             .stream()
                             .filter(t -> t.getTrainingType()
-                                          .getTrainingTypeName()
-                                          .equals(trainingType))
+                                                  .getTrainingTypeName()
+                                                  .equals(trainingType))
                             .toList();
         if (fromDate != null)
             trainings = trainings
                             .stream()
                             .filter(t -> t.getTrainingDate()
-                                          .isAfter(fromDate.minusDays(1)))
+                                                    .isAfter(fromDate.minusDays(1)))
                             .toList();
         if (toDate != null)
             trainings = trainings
                     .stream()
-                    .filter(t -> t.getTrainingDate()
-                            .isBefore(toDate))
+                    .filter(t -> t.getTrainingDate().isBefore(toDate))
                     .toList();
         List<TraineesTrainingsDto> trainingToReturn = new ArrayList<>();
         trainings.forEach(t -> trainingToReturn
